@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    avo (2.30.0)
+    table_gen (1.0.0)
       actionview (>= 6.0)
       active_link_to
       activerecord (>= 6.0)
@@ -460,7 +460,6 @@ DEPENDENCIES
   addressable
   annotate
   appraisal
-  avo!
   awesome_print
   aws-sdk-s3
   bootsnap (>= 1.4.2)
@@ -515,6 +514,7 @@ DEPENDENCIES
   spring-commands-rspec
   sprockets-rails
   standard
+  table_gen!
   test-prof
   tzinfo-data
   web-console (>= 3.3.0)
