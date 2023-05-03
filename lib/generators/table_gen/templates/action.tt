@@ -1,0 +1,14 @@
+class <%= class_name.camelize %> < TableGen::BaseAction
+  self.name = "<%= name.underscore.humanize %>"
+  # self.visible = -> do
+  #   true
+  # end
+
+  def handle(**args)
+    models, columns, current_user, table = args.values_at(:models, :columns, :current_user, :table)
+
+    models.each do |model|
+      # Do something with your models.
+    end
+  end
+end

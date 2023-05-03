@@ -1,0 +1,5 @@
+class <%= class_name %>Field < TableGen::Fields::BaseField
+  def initialize(name, **args, &block)
+    super(name, **args, &block)
+  end
+end

@@ -1,0 +1,3 @@
+<% @flashes.each do |type, message| %>
+  <%= render TableGen::Shared::AlertComponent.new type.to_sym, message %>
+<% end %>

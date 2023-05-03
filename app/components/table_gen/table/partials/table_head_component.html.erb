@@ -1,0 +1,35 @@
+<thead class="border-b border-gray-200">
+  <% if @table.record_selector %>
+    <th data-control="item-select-th">
+      <%== item_select_all_input %>
+    </th>
+  <% end %>
+
+  <% if TableGen.configuration.table_controls_on_the_left? %>
+    <th class="w-24" data-control="table-controls-th">
+      <!-- Item controls cell -->
+    </th>
+  <% end %>
+
+  <% @columns.each do |column|  %>
+    <%= content_tag :th, class: cell_classes, data: cell_data_attrs(column) do %>
+
+      <% if column.sortable %>
+        <%= link_to sort_link(column), class: column_classes(column), 'data-turbo-frame': params[:turbo_frame] do %>
+          <%= column.name %>
+        <% end %>
+      <% else %>
+        <div class="block w-full <%= column_classes(column) %>">
+          <%= column.name %>
+        </div>
+      <% end %>
+
+    <% end %>
+  <% end %>
+
+  <% if TableGen.configuration.table_controls_on_the_right? %>
+    <th class="w-24" data-control="table-controls-th">
+      <!-- Item controls cell -->
+    </th>
+  <% end %>
+</thead>

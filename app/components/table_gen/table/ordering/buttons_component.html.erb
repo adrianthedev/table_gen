@@ -1,0 +1,30 @@
+<div class="flex items-center justify-center" data-component="<%= self.class.to_s.underscore %>">
+  <% if display_inline? %>
+    <div class="flex max-w-xs rounded">
+      <%= render TableGen::Table::Ordering::ButtonComponent.new table: @table, direction: :higher, svg: 'arrow-up' %>
+      <%= render TableGen::Table::Ordering::ButtonComponent.new table: @table, direction: :lower, svg: 'arrow-down' %>
+      <%= render TableGen::Table::Ordering::ButtonComponent.new table: @table, direction: :to_top, svg: 'download-solid-reversed' %>
+      <%= render TableGen::Table::Ordering::ButtonComponent.new table: @table, direction: :to_bottom, svg: 'download-solid' %>
+    </div>
+  <% else %>
+    <div class="popover inline-block"
+         data-controller="popover"
+         data-popover-translate-x="<%= TableGen.configuration.table_controls_placement == :left ? '20%' : '-100%' %>"
+         data-popover-translate-y="-32px"
+         data-action="mouseover->popover#mouseOver mouseout->popover#mouseOut"
+    >
+      <%= button_tag nil,
+                     title: t('avo.order.reorder_record').capitalize,
+                     class: 'flex items-center',
+                     data: { tippy: 'tooltip', } do
+      %><%= svg('switch-vertical', class: 'text-gray-400 h-6 hover:text-gray-600') %>
+      <% end %>
+      <div class="flex hidden absolute max-w-xs bg-white rounded p-2" data-popover-target="content">
+        <%= render TableGen::Table::Ordering::ButtonComponent.new table: @table, direction: :higher, svg: 'arrow-up' %>
+        <%= render TableGen::Table::Ordering::ButtonComponent.new table: @table, direction: :lower, svg: 'arrow-down' %>
+        <%= render TableGen::Table::Ordering::ButtonComponent.new table: @table, direction: :to_top, svg: 'download-solid-reversed' %>
+        <%= render TableGen::Table::Ordering::ButtonComponent.new table: @table, direction: :to_bottom, svg: 'download-solid' %>
+      </div>
+    </div>
+  <% end %>
+</div>

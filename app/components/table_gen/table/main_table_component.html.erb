@@ -1,0 +1,29 @@
+<%= content_tag :div, class: "w-full relative overflow-auto", data: {
+  controller: "item-select-all",
+  'table-name': @table.model_key,
+  'item-select-all-selected-all-value': 'false',
+  'item-select-all-selected-all-query-value': encrypted_query,
+  'item-select-all-page-count-value': pagy.pages,
+  'selected-tables-name': @table.model_key,
+  'selected-tables': '[]'
+} do %>
+  <table class="w-full bg-white">
+
+    <%= render TableGen::Table::Partials::TableHeadComponent.new(
+      table: @table,
+      columns: @table.get_columns
+    ) %>
+
+    <tbody class="divide-y">
+      <% @tables.each do |table| %>
+        <%= render TableGen::Table::Partials::TableRowComponent.new(table: table) %>
+
+      <%# cache_if TableGen.configuration.cache_tables_on_index_view, expires_in: 1.day do %>
+
+
+        <%# end %>
+      <% end %>
+    </tbody>
+
+  </table>
+<% end %>

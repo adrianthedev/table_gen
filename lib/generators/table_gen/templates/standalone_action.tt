@@ -1,0 +1,8 @@
+class <%= class_name.camelize %> < TableGen::BaseAction
+  self.name = "<%= name.underscore.humanize %>"
+  self.standalone = true
+
+  def handle(columns:)
+    # Do something here
+  end
+end

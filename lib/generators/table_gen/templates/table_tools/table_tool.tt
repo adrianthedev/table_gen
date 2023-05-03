@@ -1,0 +1,4 @@
+class <%= class_name %> < TableGen::BaseTableTool
+  self.name = "<%= human_name %>"
+  # self.partial = "table_gen/table_tools/<%= file_name %>"
+end

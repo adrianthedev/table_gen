@@ -1,0 +1,63 @@
+<%= content_tag :div,
+  data: {
+    model_name: @table.model_name.to_s,
+    table_name: @table.class.to_s,
+    **@table.stimulus_data_attributes
+  } do %>
+  <%= render TableGen::PanelComponent.new(name: title, description: description, data: { component: 'tables-index' }) do |c| %>
+    <% c.tools do %>
+
+      <% if can_see_the_actions_button? %>
+        <%= render TableGen::ActionsComponent.new actions: @actions, table: @table %>
+      <% end %>
+
+      <% if can_see_the_create_button? %>
+        <%= a_link create_path,
+          icon: 'heroicons/outline/plus',
+          'data-target': 'create',
+          style: :primary,
+          color: :primary do %>
+          <%= t('avo.create_new_item', item: singular_table_name.downcase ) %>
+        <% end %>
+      <% end %>
+
+    <% end %>
+
+    <% c.body do %>
+      <div class="flex flex-col xs:flex-row xs:justify-between space-y-2 xs:space-y-0 py-4 <%= 'hidden' if @table.search_query.nil? && @filters.empty? %>">
+
+        <% if show_search_input %>
+          <div class="flex items-center px-4 w-64">
+            <%= render partial: 'table_gen/partials/table_search', locals: {table: @table.route_key} %>
+          </div>
+        <% else %>
+          <div class="-mb-2"></div>
+        <% end %>
+
+        <% if @filters.present? %>
+          <div class="justify-self-end flex justify-start xs:justify-end items-center px-4 space-x-3">
+            <%= render TableGen::Partials::FiltersComponent.new filters: @filters, table: @table, applied_filters: @applied_filters %>
+          </div>
+        <% end %>
+
+      </div>
+
+      <% if @tables.present? %>
+        <div class="w-full relative flex-1 flex mt-0">
+          <%= render(TableGen::Table::MainTableComponent.new(tables: @tables, table: @table, pagy: @pagy, query: @query)) %>
+        </div>
+      <% else %>
+        <%= empty_state by_association: params[:related_name].present?, add_background: true %>
+      <% end %>
+
+    <% end %>
+
+    <% c.bare_content do %>
+      <% if @models.present? %>
+        <div class="mt-4">
+          <%= render TableGen::Partials::PaginatorComponent.new pagy: @pagy, turbo_frame: @turbo_frame || 'none', index_params: @index_params, table: @table %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

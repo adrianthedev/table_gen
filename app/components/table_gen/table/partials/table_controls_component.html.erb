@@ -1,0 +1,46 @@
+<div class="space-x-2 flex flex-row justify-around w-full">
+  <% button_classes = "text-gray-600 h-6 hover:text-gray-600" %>
+
+  <% if can_view? %>
+    <%= link_to svg('eye', class: button_classes),
+                view_path,
+                class: 'flex items-center',
+                title: t('avo.view_item', item: singular_table_name).capitalize,
+                data: {
+                  target: 'control:view',
+                  control: :show,
+                  'tippy': 'tooltip',
+                }
+    %>
+  <% end %>
+
+  <% if can_edit? %>
+    <%= link_to svg('edit', class: button_classes),
+                edit_path,
+                class: 'flex items-center',
+                title: t('avo.edit_item', item: singular_table_name).capitalize,
+                data: {
+                  target: 'control:edit',
+                  control: :edit,
+                  'resource-id': @table.model.id,
+                  tippy: 'tooltip',
+                }
+    %>
+  <% end %>
+
+  <% if can_delete? %>
+    <%= link_to svg('trash', class: button_classes),
+                view_path,
+                class: 'flex items-center',
+                title: t('avo.delete_item', item: singular_table_name).capitalize,
+                data: {
+                  turbo_method: :delete,
+                  target: 'control:destroy',
+                  control: :destroy,
+                  turbo_confirm: t('avo.are_you_sure',  item: singular_table_name),
+                  resource_id: @table.model.id,
+                  tippy: 'tooltip',
+                }
+    %>
+  <% end %>
+</div>

@@ -1,0 +1,13 @@
+<% if name.present? %>
+  <turbo-frame id="<%= name %>">
+<% end %>
+
+<% if turbo_frame_request? %>
+  <%= turbo_stream_action_tag :append, target: 'alerts', template: render(TableGen::Shared::FlashAlertsComponent.new(flashes: helpers.flash)) %>
+<% end %>
+
+<%= content %>
+
+<% if name.present? %>
+  </turbo-frame>
+<% end %>

@@ -1,0 +1,2 @@
+class TableGen::ToolsController < TableGen::ApplicationController
+end
